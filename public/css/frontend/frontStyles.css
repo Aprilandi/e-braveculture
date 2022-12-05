@@ -1,0 +1,70 @@
+.model__3d{
+    margin: auto;
+    justify-content: center;
+    max-width: 1560px;
+    height: auto;
+}
+
+/* .modal__header__3d{
+    min-height: 100vh;
+} */
+.canvas-containe canvas{
+    padding-top: 2em;
+}
+.canvas__model__3d{
+    height: 550px;
+    padding-top: 3em;
+}
+
+.canvas-container{
+    padding-top: 4em;
+}
+
+.canvas-container,
+.lower-canvas{
+    min-height: 500px;
+    min-width: 500px;
+    object-fit: cover;
+    background-repeat: no-repeat;
+}
+
+.modal__canvas__3d{
+    margin: auto;
+    justify-content: center;
+    max-width: 1560px;
+    height: auto;
+}
+
+input.form-control-file#txtIcon {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.rectangle{
+    width:40px;
+    height:40px;
+}
+
+#scene {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* width: 100%; */
+    min-height: 350px;
+}
+
+.canvas-container{
+    object-fit: cover;
+    background-repeat: no-repeat;
+    /* width: 100%;
+    min-height: 350px; */
+}
+
+.model__3d__wrapper{
+    margin: auto;
+    max-width: 1500px;
+    justify-content: center;
+    transform: translateY(15%);
+}

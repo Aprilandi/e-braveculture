@@ -1,0 +1,19 @@
+<svg width="53px" height="43px" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @media (prefers-color-scheme: light) {
+        img {
+            width:53px;
+            height:43px;
+            content: url(/images/company/logo-black.png);
+        }
+    }
+    @media (prefers-color-scheme: dark) {
+        img {
+            width:53px;
+            height:43px;
+            content: url(/images/company/logo-white.png);
+        }
+    }
+  </style>
+  <img src='/images/company/logo-white.png'/>
+</svg>
