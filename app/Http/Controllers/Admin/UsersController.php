@@ -46,6 +46,27 @@ class UsersController extends Controller
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
         }
+        else{
+            $user = User::create([
+                'name' => $request->txtName,
+                'avatar' => 'user.jpg',
+                'username' => $request->txtUsername,
+                'email' => $request->txtEmail,
+                'id_role' => $request->txtRole,
+                'password' => bcrypt($request->txtPassword),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+            $userStatus = UserStatus::create([
+                'id_user' => $user->id_user,
+                'id_level' => Levels::orderBy('tier_level', 'asc')->first()->id_level,
+                'experience_points' => '0',
+                'redeemable_points' => '0',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+        }
 
         return redirect()->route('user.index')->with('insert', 'Data Berhasil Ditambah');
     }
