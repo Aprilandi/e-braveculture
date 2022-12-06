@@ -2,6 +2,11 @@
 @push('style')
 {{-- aditional style --}}
 <link rel="stylesheet" href="{{ asset('css/admin/chart-dashboard.css') }}">
+<!-- ✅ Load CSS file for jQuery ui  -->
+<link
+href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"
+rel="stylesheet"
+/>
 
 @endpush
 
@@ -157,6 +162,7 @@
 <script src="{{ asset('js/chartjs.min.js') }}"></script>
 {{-- DatePicker Script ( Calendar only Years ) --}}
 <script>
+    let today = new Date();
     $(document).ready(function(){
         change_periode();
         setChart();
@@ -170,8 +176,10 @@
             onClose: function(dateText, inst) {
                 var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
                 $(this).datepicker('setDate', new Date(year, 1));
+                getData();
             }
         });
+        $('#datepicker').val(today.getFullYear());
     }
 
     $(".date-picker-year").focus(function () {
@@ -188,27 +196,25 @@
         let html = "";
         if($('#txtPerperiode').val() === "bulan"){
             html += '<div class="time__month">';
-            html += '<input type="month" class="date__time" id="date" name="txtPeriode">';
+            html += '<input type="month" class="date__time" id="date" name="txtPeriode" onchange="getData()">';
             html += '</div>';
         }
         else if($('#txtPerperiode').val() === "tahun"){
             html += '<div class="time__years">';
-            html += '<input type="text" class="date__years__time" id="datepicker" name="txtPeriode"/>';
+            html += '<input type="text" class="date__years__time" id="datepicker" name="txtPeriode" readonly/>';
             html += '</div>';
         }
         $('#perperiode').html(html);
         if($('#txtPerperiode').val() === "tahun"){
             setDatepicker();
         }
+        else if($('#txtPerperiode').val() === "bulan"){
+            $('#date').val(today.getFullYear() + "-" + today.getMonth());
+        }
     }
 </script>
 {{-- Chart Script --}}
 <script>
-
-    $('input[name="txtPeriode"]').focusout(function(){
-        alert('tes');
-        getData();
-    });
 
     function getData(){
         var perperiode = $('#txtPerperiode').val();
@@ -321,8 +327,20 @@
     }
 </script>
 
-@push('scripts')
-
 {{-- aditional JS --}}
+<!-- ✅ load jQuery ✅ -->
+<script
+src="https://code.jquery.com/jquery-3.6.0.min.js"
+integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+crossorigin="anonymous"
+></script>
+
+<!-- ✅ load jquery UI ✅ -->
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+crossorigin="anonymous"
+referrerpolicy="no-referrer"
+></script>
 
 @endpush

@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function() {
 
     Route::middleware('admin')->group(function() {
         Route::get('/dashboard/admin', 'Admin\AdminController@index')->name('admin');
+        Route::get('/dashboard/admin/dataChart', 'Admin\AdminController@dataChart')->name('dataChart');
         Route::post('/dashboard/admin/user/role', 'Admin\UsersController@rolestore')->name('role.store');
         Route::put('/dashboard/admin/user/role/{id}', 'Admin\UsersController@roleupdate')->name('role.update');
         Route::delete('/dashboard/admin/user/role/{id}/delete', 'Admin\UsersController@roledestroy')->name('role.destroy');
