@@ -173,6 +173,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        {{$terbayar->appends(['terbayar' => $terbayar->currentPage()])->links()}}
                     </div>
                 </div>
             </div>
@@ -270,7 +271,7 @@
                                 </tbody>
                             </table>
                         </div>
-
+                        {{$menunggu->appends(['menunggu' => $menunggu->currentPage()])->links()}}
                     </div>
                 </div>
             </div>
@@ -382,6 +383,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        {{$dikirim->appends(['dikirim' => $dikirim->currentPage()])->links()}}                        </div>
                     </div>
                 </div>
             </div>

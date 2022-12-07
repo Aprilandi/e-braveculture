@@ -2459,3 +2459,29 @@ textarea {
 .contact-info .social-networks ul li a:hover {
     color: #FE980F;
 }
+
+.table__container{
+    position: relative;
+    font-family: 'Verdana', sans-serif;
+}
+
+.table__container .filters ul{
+    display: flex;
+    flex-direction: row;
+    gap: 1.5em;
+    margin: auto;
+    justify-content: center;
+    padding: 2em 0;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 700;
+    color: #121222;
+}
+
+.table__container .filters ul li a:hover{
+    color: #f33f3f;
+}
+
+.table__container .filters .active{
+    color: #f33f3f;
+}

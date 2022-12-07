@@ -58,20 +58,18 @@
 <div class="prize-list">
     <section id="cart_items" style="margin-top: 50px">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 table__container">
                     <div class="filters">
                         <ul>
-                            <li class="active" data-filter="*"><a href="{{ route('history.index', ['user' => Auth::user()->username]) }}">Menunggu Pembayaran</a></li>
-                            <li data-filter=".des"><a href="{{ route('history.index', ['user' => Auth::user()->username, 'prefix' => 'terbayar']) }}">Terbayar</a></li>
-                            <li data-filter=".des"><a href="{{ route('history.index', ['user' => Auth::user()->username, 'prefix' => 'ditolak']) }}">Ditolak</a></li>
-                            <li data-filter=".dev"><a href="{{ route('history.index', ['user' => Auth::user()->username, 'prefix' => 'pelunasan']) }}">Menunggu Pelunasan</a></li>
-                            <li data-filter=".dev"><a href="{{ route('history.index', ['user' => Auth::user()->username, 'prefix' => 'dikirim']) }}">Terkirim</a></li>
-                            <li data-filter=".gra"><a href="{{ route('history.index', ['user' => Auth::user()->username, 'prefix' => 'selesai']) }}">Selesai</a></li>
+                            <li @if(empty($prefix)) class="active" @endif data-filter="*"><a href="{{ route('history.index', ['user' => Auth::user()->username]) }}">Menunggu Pembayaran</a></li>
+                            <li @if($prefix == 'terbayar') class="active" @endif data-filter=".des"><a href="{{ route('history.index', ['user' => Auth::user()->username, 'prefix' => 'terbayar']) }}">Terbayar</a></li>
+                            <li @if($prefix == 'ditolak') class="active" @endif data-filter=".des"><a href="{{ route('history.index', ['user' => Auth::user()->username, 'prefix' => 'ditolak']) }}">Ditolak</a></li>
+                            <li @if($prefix == 'pelunasan') class="active" @endif data-filter=".dev"><a href="{{ route('history.index', ['user' => Auth::user()->username, 'prefix' => 'pelunasan']) }}">Menunggu Pelunasan</a></li>
+                            <li @if($prefix == 'dikirim') class="active" @endif data-filter=".dev"><a href="{{ route('history.index', ['user' => Auth::user()->username, 'prefix' => 'dikirim']) }}">Terkirim</a></li>
+                            <li @if($prefix == 'selesai') class="active" @endif data-filter=".gra"><a href="{{ route('history.index', ['user' => Auth::user()->username, 'prefix' => 'selesai']) }}">Selesai</a></li>
                         </ul>
                     </div>
                 </div>
-            </div>
             <div class="row">
                 <div class="table-responsive cart_info">
                     <table class="table table-condensed">

@@ -23,7 +23,7 @@ class RajaOngkir
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "GET",
           CURLOPT_HTTPHEADER => array(
-            "key: 6de9bf76306e9a293495f269a4830486"
+            "key: f4c486593c2272db4e4355cc8592819e"
           ),
         ));
 
@@ -37,8 +37,12 @@ class RajaOngkir
         } else {
             //decode
             $response=json_decode($response,true);
-
-            $provinsi = $response['rajaongkir']['results'];
+            if(isset($response['rajaongkir']['results'])){
+                $provinsi = $response['rajaongkir']['results'];
+            }
+            else{
+                $provinsi = $response['rajaongkir']['status'];
+            }
             return $provinsi;
         }
     }
@@ -56,7 +60,7 @@ class RajaOngkir
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_HTTPHEADER => array(
-            "key: 6de9bf76306e9a293495f269a4830486"
+            "key: f4c486593c2272db4e4355cc8592819e"
         ),
         ));
 
@@ -71,7 +75,12 @@ class RajaOngkir
             //decode
             $response=json_decode($response,true);
 
-            $kota = $response['rajaongkir']['results'];
+            if(isset($response['rajaongkir']['results'])){
+                $kota = $response['rajaongkir']['results'];
+            }
+            else{
+                $kota = $response['rajaongkir']['status'];
+            }
             return $kota;
         }
     }
@@ -91,7 +100,7 @@ class RajaOngkir
             CURLOPT_POSTFIELDS => "origin=$asal&destination=$tujuan&weight=$berat&courier=$kurir",
             CURLOPT_HTTPHEADER => array(
             "content-type: application/x-www-form-urlencoded",
-            "key: 6de9bf76306e9a293495f269a4830486"
+            "key: f4c486593c2272db4e4355cc8592819e"
             ),
         ));
 
@@ -104,7 +113,12 @@ class RajaOngkir
             echo "cURL Error #:" . $err;
         } else {
             $response=json_decode($response,true);
-            $data_ongkir = $response['rajaongkir']['results'];
+            if(isset($response['rajaongkir']['results'])){
+                $data_ongkir = $response['rajaongkir']['results'];
+            }
+            else{
+                $data_ongkir = $response['rajaongkir']['status'];
+            }
             return json_encode($data_ongkir);
         }
     }

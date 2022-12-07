@@ -65,6 +65,7 @@ class ProductsController extends Controller
         $products = Products::get();
         $province = RajaOngkir::instance()->get_provinces();
         $city = RajaOngkir::instance()->get_cities();
+        // dd($province);
         return view('cart', ['stock' => $products, 'province' => $province, 'city' => $city]);
     }
 

@@ -6,6 +6,13 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+.top__nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
 .sidebar{
   position: fixed;
   height: 100%;
@@ -84,7 +91,7 @@
   width: calc(100% - 60px);
   left: 60px;
 }
-.home-section nav{
+.home-section .nav__wrapper{
   display: flex;
   justify-content: space-between;
   height: 80px;

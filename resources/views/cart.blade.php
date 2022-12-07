@@ -239,10 +239,12 @@
                             <li class="single_field">
 								<label for="txtProvinsi">Region / State:</label>
 								<select id="txtProvinsi">
-                                    @foreach($province as $row)
-                                        <option value="{{ $row['province_id'] }}" data-provinsi="{{ $row['province'] }}" @if(!empty(Auth::user()->province_id)) @if(Auth::user()->province_id == $row['province_id']) selected @endif @endif>{{ $row['province'] }}</option>
-                                    @endforeach
-								</select>
+                                    @if(!isset($province['code']))
+                                        @foreach($province as $row)
+                                            <option value="{{ $row['province_id'] }}" data-provinsi="{{ $row['province'] }}" @if(!empty(Auth::user()->province_id)) @if(Auth::user()->province_id == $row['province_id']) selected @endif @endif>{{ !empty($row['province']) ? $row['province']:'' }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
 							</li>
 							<li class="single_field">
 								<label for="txtKota">City:</label>
@@ -373,6 +375,13 @@
 @push('scripts')
 {{-- if there is a new scripts for this specific page --}}
 <script>
+
+    $(document).ready(function(){
+        @if(isset($province['code']))
+        alert('Raja Ongkir : {{ $province["description"] }}');
+        @endif
+    });
+
     var tl = 0;
     var diskon = 0;
     var id_diskon = 0;
@@ -509,10 +518,12 @@
         var i = 0;
         var sts;
         if(id === undefined) { id = $('#txtProvinsi').val() }
-        @foreach($city as $row)
-            kota[i] = ['{{ $row["province_id"] }}', '{{ $row["city_id"] }}', '{{ $row["city_name"] }}', '{{ $row["postal_code"] }}'];
-            i++;
-        @endforeach
+        @if(!isset($city["code"]))
+            @foreach($city as $row)
+                kota[i] = ['{{ $row["province_id"] }}', '{{ $row["city_id"] }}', '{{ $row["city_name"] }}', '{{ $row["postal_code"] }}'];
+                i++;
+            @endforeach
+        @endif
         for (let index = 0; index < kota.length; index++) {
             if( kota[index][0] === id){
                 if( kota[index][1] === id_kota){

@@ -171,8 +171,8 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{$terbayar->appends(['terbayar' => $terbayar->currentPage()])->links()}}
                         </div>
+                        {{$terbayar->appends(['terbayar' => $terbayar->currentPage()])->links()}}
                     </div>
                 </div>
             </div>
@@ -373,8 +373,8 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{$dikirim->appends(['dikirim' => $dikirim->currentPage()])->links()}}                        </div>
                         </div>
+                        {{$dikirim->appends(['dikirim' => $dikirim->currentPage()])->links()}}                        </div>
                     </div>
                 </div>
             </div>
@@ -443,155 +443,6 @@
         </div>
     </div>
 </div>
-
-{{-- Model 3D --}}
-{{-- <div id="modelModal" class="modal fade model__3d" tabindex="-1" role="dialog" aria-labelledby="modelLabel"
-    aria-hidden="true">
-    <div class="model__3d__wrapper" role="document">
-        <div class="modal-content modal__content__3d">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modelLabel"><b>Model Sablon : </b><b id="nama"></b><b id="tgl"></b></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body modal__canvas__3d">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="container">
-                                 Radio Button Baju
-                                <div id="baju" class="pilihan">
-                                    <div class="row">
-                                        <div class="col">
-                                            <label><input type="radio" name="bagian" value="Depan" checked /> Depan</label>
-                                        </div>
-                                        <div class="col">
-                                            <label><input type="radio" name="bagian" value="Belakang"> Belakang</label>
-                                        </div>
-                                        <div class="col">
-                                            <label><input type="radio" name="bagian" value="Kanan"> Lengan Kanan</label>
-                                        </div>
-                                        <div class="col">
-                                            <label><input type="radio" name="bagian" value="Kiri"> Lengan Kiri</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="left-content">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="relative h-256">
-                                                <div id="showDepan" class="hideCanvas">
-                                                    <div id="scene">
-                                                        <canvas class="config" id="depan"></canvas>
-                                                    </div>
-                                                </div>
-                                                <div id="showBelakang" class="hideCanvas" style="display:none">
-                                                    <div id="scene">
-                                                        <canvas class="config" id="belakang"></canvas>
-                                                    </div>
-                                                </div>
-                                                <div id="showKanan" class="hideCanvas" style="display:none">
-                                                    <div id="scene">
-                                                        <canvas class="config" id="kanan"></canvas>
-                                                    </div>
-                                                </div>
-                                                <div id="showKiri" class="hideCanvas" style="display:none">
-                                                    <div id="scene">
-                                                        <canvas class="config" id="kiri"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="right-content">
-                                    <div class="relative h-256">
-                                        <div id="scene">
-                                            <canvas id="model"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-{{-- Modal Model 3d V2 --}}
-{{-- <div id="moodelModal" class="modal fade model__3d" tabindex="-1" role="dialog" aria-labelledby="moodelLabel"
-    aria-hidden="true">
-    <div class="model__3d__wrapper" role="document">
-        <div class="modal-content">
-            <div class="modal__content__3d">
-                <h5 class="modal-title" id="moodelLabel">
-                    <b>Model 3d : </b><b id="nama"></b><b id="tgl"></b></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body modal__canvas__3d">
-             Modal Canvas Container
-                <div class="modal__3d__canvas--container">
-                    <div class="modal__section__option">
-                         Radio Button Baju
-                        <div id="baju" class="pilihan__3d">
-                            <div class="row">
-                                <div class="col">
-                                    <label><input type="radio" name="bagian" value="Depan" checked /> Depan</label>
-                                </div>
-                                <div class="col">
-                                    <label><input type="radio" name="bagian" value="Belakang"> Belakang</label>
-                                </div>
-                                <div class="col">
-                                    <label><input type="radio" name="bagian" value="Kanan"> Lengan Kanan</label>
-                                </div>
-                                <div class="col">
-                                    <label><input type="radio" name="bagian" value="Kiri"> Lengan Kiri</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     Canvas 3D MODEL
-                    <div class="canvas__model__3d">
-                        <div id="showDepan" class="hideCanvas">
-                            <div id="scene">
-                                <canvas class="config" id="depan"></canvas>
-                            </div>
-                        </div>
-                        <div id="showBelakang" class="hideCanvas" style="display:none">
-                            <div id="scene">
-                                <canvas class="config" id="belakang"></canvas>
-                            </div>
-                        </div>
-                        <div id="showKanan" class="hideCanvas" style="display:none">
-                            <div id="scene">
-                                <canvas class="config" id="kanan"></canvas>
-                            </div>
-                        </div>
-                        <div id="showKiri" class="hideCanvas" style="display:none">
-                            <div id="scene">
-                                <canvas class="config" id="kiri"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                     END  Canvas 3D MODEL
-                </div>
-             End Modal Canvas Container
-            </div>
-        </div>
-    </div>
-</div> --}}
 
 {{-- 3D Trial Error --}}
 <div id="moodelModal" class="modal fade model__3" tabindex="-1" role="dialog" aria-labelledby="moodelLabel"
@@ -670,82 +521,6 @@
         </div>
     </div>
 </div>
-
-{{-- MODEL MODAL --}}
-{{--  <div id="moodelModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="moodelLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="moodelLabel"><b>Detail Transaksi : </b><b id="nama"></b><b id="tgl"></b></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="container">
-                         Radio Button Baju
-                        <div id="baju" class="pilihan">
-                            <div class="row">
-                                <div class="col">
-                                    <label><input type="radio" name="bagian" value="Depan" checked /> Depan</label>
-                                </div>
-                                <div class="col">
-                                    <label><input type="radio" name="bagian" value="Belakang"> Belakang</label>
-                                </div>
-                                <div class="col">
-                                    <label><input type="radio" name="bagian" value="Kanan"> Lengan Kanan</label>
-                                </div>
-                                <div class="col">
-                                    <label><input type="radio" name="bagian" value="Kiri"> Lengan Kiri</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="left-content">
-                            <div class="relative h-256">
-                                <div id="showDepan" class="hideCanvas">
-                                    <div class="scene">
-                                        <canvas class="config" id="depan"></canvas>
-                                    </div>
-                                </div>
-                                <div id="showBelakang" class="hideCanvas" style="display:none">
-                                    <div class="scene">
-                                        <canvas class="config" id="belakang"></canvas>
-                                    </div>
-                                </div>
-                                <div id="showKanan" class="hideCanvas" style="display:none">
-                                    <div class="scene">
-                                        <canvas class="config" id="kanan"></canvas>
-                                    </div>
-                                </div>
-                                <div id="showKiri" class="hideCanvas" style="display:none">
-                                    <div class="scene">
-                                        <canvas class="config" id="kiri"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="right-content">
-                            <div class="relative h-256">
-                                <div class="scene">
-                                    <canvas id="model"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>  --}}
 
 @endsection
 
