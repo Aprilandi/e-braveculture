@@ -123,7 +123,7 @@
                                         {{-- @php($terbayar = App\Models\SaleTransactionsPayments::where('id_sale', $row->id_sale)->select('pembayaran')->sum('pembayaran')) --}}
                                         <td>Rp {{ number_format($row->total, '2', ',', '.') }}</td>
                                         <td>Rp {{ number_format($row->ordertransactionpayments->sum('pembayaran'), '2', ',', '.') }}</td>
-                                        <td>{{ !empty($row->perolehan_points) ? $row->perolehan_points:0 }} Point</td>
+                                        <td>{{ !empty($row->perolehan_points) ? $row->perolehan_points:0 }} + {{ !empty($row->bonus_points) ? $row->bonus_points:0 }} ( {{ !empty($row->persentase_bonus) ? $row->persentase_bonus:0 }}% ) = {{ $row->perolehan_points + $row->bonus_points }} Point</td>
                                         <td>
                                             <button class="btn btn-light btn-sm" name="model3d" data-model="{{ !empty($row->model_3d_json) ? $row->model_3d_json:'' }}" data-height="{{ $row->canvas_height }}" data-width="{{ $row->canvas_width }}">
                                                 <i class="fa fa-eye"> </i>
@@ -171,6 +171,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{$terbayar->appends(['terbayar' => $terbayar->currentPage()])->links()}}
                         </div>
                     </div>
                 </div>
@@ -234,7 +235,7 @@
                                         {{-- @php($terbayar = App\Models\SaleTransactionsPayments::where('id_sale', $row->id_sale)->select('pembayaran')->sum('pembayaran')) --}}
                                         <td>Rp {{ number_format($row->total, '2', ',', '.') }}</td>
                                         <td>Rp {{ number_format($row->ordertransactionpayments->sum('pembayaran'), '2', ',', '.') }}</td>
-                                        <td>{{ !empty($row->perolehan_points) ? $row->perolehan_points:0 }} Point</td>
+                                        <td>{{ !empty($row->perolehan_points) ? $row->perolehan_points:0 }} + {{ !empty($row->bonus_points) ? $row->bonus_points:0 }} ( {{ !empty($row->persentase_bonus) ? $row->persentase_bonus:0 }}% ) = {{ $row->perolehan_points + $row->bonus_points }} Point</td>
                                         <td>
                                             <button class="btn btn-light btn-sm" name="model3d" data-model="{{ !empty($row->model_3d_json) ? $row->model_3d_json:'' }}" data-height="{{ $row->canvas_height }}" data-width="{{ $row->canvas_width }}">
                                                 <i class="fa fa-eye"> </i>
@@ -265,6 +266,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        {{$menunggu->appends(['menunggu' => $menunggu->currentPage()])->links()}}
                     </div>
                 </div>
             </div>
@@ -341,7 +343,7 @@
                                                 <i class="fa fa-eye"> </i>
                                             </button>
                                         </td>
-                                        <td>{{ !empty($row->perolehan_points) ? $row->perolehan_points:0 }} Point</td>
+                                        <td>{{ !empty($row->perolehan_points) ? $row->perolehan_points:0 }} + {{ !empty($row->bonus_points) ? $row->bonus_points:0 }} ( {{ !empty($row->persentase_bonus) ? $row->persentase_bonus:0 }}% ) = {{ $row->perolehan_points + $row->bonus_points }} Point</td>
                                         <td>
                                             <button class="btn btn-light btn-sm" name="model3d" data-model="{{ !empty($row->model_3d_json) ? $row->model_3d_json:'' }}" data-height="{{ $row->canvas_height }}" data-width="{{ $row->canvas_width }}">
                                                 <i class="fa fa-eye"> </i>
@@ -371,6 +373,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{$dikirim->appends(['dikirim' => $dikirim->currentPage()])->links()}}                        </div>
                         </div>
                     </div>
                 </div>

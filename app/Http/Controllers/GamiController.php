@@ -150,7 +150,6 @@ class GamiController extends Controller
 
             $bonusPoint = $points * ( Auth::user()->userstatus->levels->bonus_point / 100 );
 
-            $totalPoints = $points + $bonusPoint;
             // dd($points);
             // if ($ttl <= 50000){
             //     $points = $ttl * (0.4 / 100);
@@ -294,22 +293,22 @@ class GamiController extends Controller
                         dd($e);
                     }
 
-                    $oldRP = UserStatus::where('id_user', '=', Auth::user()->id_user)->select('redeemable_points_pending')->get();
-
-                    $newRP = $oldRP->first()->redeemable_points_pending + $totalPoints;
-
-
-                    try {
-                        UserStatus::where('id_user', '=', Auth::user()->id_user)->update([
-                            'redeemable_points_pending' => $newRP,
-                            'updated_at' => date('Y-m-d H:i:s')
-                        ]);
-                    } catch (\Throwable $th) {
-                        //throw $th;
-                    }
-
                 }
             }
+
+            $oldRP = UserStatus::where('id_user', '=', Auth::user()->id_user)->select('redeemable_points_pending')->get();
+
+            $newRP = $oldRP->first()->redeemable_points_pending + $points + $bonusPoint;
+            // dd($newRP);
+            try {
+                UserStatus::where('id_user', '=', Auth::user()->id_user)->update([
+                    'redeemable_points_pending' => $newRP,
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+
             Session::pull('cart');
             return redirect()->route('dashboard')->with('transaksi', 'Berhasil melakukan checkout silahkan menunggu konfirmasi dari pemilik');
         }

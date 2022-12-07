@@ -51,6 +51,8 @@ class HistoryController extends Controller
             ->groupBy('sale_transactions.dp')
             ->groupBy('sale_transactions.status_bayar')
             ->groupBy('sale_transactions.perolehan_points')
+            ->groupBy('sale_transactions.bonus_points')
+            ->groupBy('sale_transactions.persentase_bonus')
             ->groupBy('sale_transactions.status')
             ->groupBy('sale_transactions.no_resi')
             ->groupBy('sale_transactions.created_at')
@@ -85,9 +87,13 @@ class HistoryController extends Controller
             ->groupBy('order_transactions.dp')
             ->groupBy('order_transactions.status_bayar')
             ->groupBy('order_transactions.perolehan_points')
+            ->groupBy('order_transactions.bonus_points')
+            ->groupBy('order_transactions.persentase_bonus')
             ->groupBy('order_transactions.status')
             ->groupBy('order_transactions.no_resi')
             ->groupBy('order_transactions.model_3d_json')
+            ->groupBy('order_transactions.canvas_height')
+            ->groupBy('order_transactions.canvas_width')
             ->groupBy('order_transactions.created_at')
             ->groupBy('order_transactions.updated_at')
             ->get();
@@ -122,7 +128,7 @@ class HistoryController extends Controller
             ->where('status', "Dikirim")
             ->get();
 
-            $orders = OrderTransactions::where('id_user', '=', Auth::user()->id_user)
+            $order = OrderTransactions::where('id_user', '=', Auth::user()->id_user)
             ->where('status', "Dikirim")
             ->get();
         }
@@ -131,7 +137,7 @@ class HistoryController extends Controller
             ->where('status', "Selesai")
             ->get();
 
-            $orders = OrderTransactions::where('id_user', '=', Auth::user()->id_user)
+            $order = OrderTransactions::where('id_user', '=', Auth::user()->id_user)
             ->where('status', "Selesai")
             ->get();
         }

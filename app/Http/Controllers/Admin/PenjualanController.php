@@ -99,27 +99,28 @@ class PenjualanController extends Controller
             $user = SaleTransactions::where('id_sale', $id)->get();
 
             $userSTS = UserStatus::where('id_user', $user->first()->id_user)->get();
-            $newPoints = $userSTS->first()->redeemable_points + $user->first()->perolehan_points;
-            $newPending = $userSTS->first()->redeemable_points_pending - $user->first()->perolehan_points;
+            $newPoints = $userSTS->first()->redeemable_points + $user->first()->perolehan_points + $user->first()->bonus_points;
+            $newPending = $userSTS->first()->redeemable_points_pending - $user->first()->perolehan_points - $user->first()->bonus_points;
 
             $oldXP = UserStatus::where('id_user', '=', $user->first()->id_user)->select('experience_points')->get();
-            $newXP = $oldXP->first()->experience_points + 10;
+            $newXP = $oldXP->first()->experience_points + 100;
 
             // GET ALL LEVEL
-            $levels = Levels::get();
+            $levels = Levels::orderBy('tier_level', 'asc')->get();
 
             // Level Check Minimum
-            foreach($levels as $key => $value){
-                if($value->id_level == $user->first()->user->userstatus->id_level){
-                    $indexLVL = $key;
-                    $min = $value->minimal;
+            if($user->first()->user->userstatus->id_level != $levels->max('id_level')){
+                foreach($levels as $key => $value){
+                    if($value->id_level == $user->first()->user->userstatus->id_level){
+                        $indexLVL = $key;
+                        $min = $levels->get($key + 1)->minimal;
+                    }
                 }
-            }
-
-            // Check if Level UP
-            if($newXP >= $min){
-                $newXP = $newXP - $min;
-                $newLVL = $levels[( $indexLVL + 1 )]->id_level;
+                // Check if Level UP
+                if($newXP >= $min){
+                    $newXP = $newXP - $min;
+                    $newLVL = $levels[( $indexLVL + 1 )]->id_level;
+                }
             }
 
             try {
