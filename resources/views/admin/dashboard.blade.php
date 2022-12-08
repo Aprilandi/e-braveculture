@@ -16,45 +16,29 @@ rel="stylesheet"
     <div class="overview-boxes">
         <div class="box">
             <div class="right-side">
-                <div class="box-topic">Total Order</div>
-                <div class="number">40,876</div>
-                <div class="indicator">
-                    <i class='bx bx-up-arrow-alt'></i>
-                    <span class="text">Up from yesterday</span>
-                </div>
+                <div class="box-topic">Total Transaksi</div>
+                <div class="number" id="boxTransaksi"></div>
             </div>
             <i class='bx bx-cart-alt cart'></i>
         </div>
         <div class="box">
             <div class="right-side">
-                <div class="box-topic">Total Sales</div>
-                <div class="number">38,876</div>
-                <div class="indicator">
-                    <i class='bx bx-up-arrow-alt'></i>
-                    <span class="text">Up from yesterday</span>
-                </div>
+                <div class="box-topic">Total Pemesanan</div>
+                <div class="number" id="boxPemesanan"></div>
             </div>
             <i class='bx bxs-cart-add cart two'></i>
         </div>
         <div class="box">
             <div class="right-side">
-                <div class="box-topic">Total Profit</div>
-                <div class="number">$12,876</div>
-                <div class="indicator">
-                    <i class='bx bx-up-arrow-alt'></i>
-                    <span class="text">Up from yesterday</span>
-                </div>
+                <div class="box-topic">Total Penjualan</div>
+                <div class="number" id="boxPenjualan"></div>
             </div>
             <i class='bx bx-cart cart three'></i>
         </div>
         <div class="box">
             <div class="right-side">
-                <div class="box-topic">Total Return</div>
-                <div class="number">11,086</div>
-                <div class="indicator">
-                    <i class='bx bx-down-arrow-alt down'></i>
-                    <span class="text">Down From Today</span>
-                </div>
+                <div class="box-topic">Total Pendapatan</div>
+                <div class="number" id="boxPendapatan"></div>
             </div>
             <i class='bx bxs-cart-download cart four'></i>
         </div>
@@ -76,8 +60,8 @@ rel="stylesheet"
                                     <div class="periodes__section">
                                         <h1 class="periodes__heading"> Pilih Periode :</h1>
                                         <select name="txtPerperiode" id="txtPerperiode" class="form-control form__periodes">
-                                            <option class="periodes__select" value="tahun" selected>Pertahun</option>
-                                            <option class="periodes__select" value="bulan">Perbulan</option>
+                                            <option class="periodes__select" value="tahun">Pertahun</option>
+                                            <option class="periodes__select" value="bulan" selected>Perbulan</option>
                                         </select>
                                         <div id="perperiode">
                                         </div>
@@ -95,9 +79,9 @@ rel="stylesheet"
             </div>
         </div>
         <div class="top-sales box">
-            <div class="title">Top Seling Product</div>
-            <ul class="top-sales-details">
-                <li>
+            <div class="title">Ranking Points Leaderboard</div>
+            <ul class="top-sales-details" id="ranking_points">
+                {{-- <li>
                     <a href="#">
                         <!--<img src="images/sunglasses.jpg" alt="">-->
                         <span class="product">Vuitton Sunglasses</span>
@@ -147,11 +131,11 @@ rel="stylesheet"
                 </li>
                 <li>
                     <a href="#">
-                        <!--<img src="images/shirt.jpg" alt="">-->
+                        <img src="images/shirt.jpg" alt="">
                         <span class="product">Bilack Wear's Shirt</span>
                     </a>
                     <span class="price">$1245</span>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>
@@ -165,7 +149,8 @@ rel="stylesheet"
     let today = new Date();
     $(document).ready(function(){
         change_periode();
-        setChart();
+        getRanking();
+        getData();
     });
 
     function setDatepicker(){
@@ -209,8 +194,9 @@ rel="stylesheet"
             setDatepicker();
         }
         else if($('#txtPerperiode').val() === "bulan"){
-            $('#date').val(today.getFullYear() + "-" + today.getMonth());
+            $('#date').val(today.getFullYear() + "-" + ( today.getMonth() + 1 ));
         }
+        getData();
     }
 </script>
 {{-- Chart Script --}}
@@ -219,12 +205,99 @@ rel="stylesheet"
     function getData(){
         var perperiode = $('#txtPerperiode').val();
         var periode = $('input[name="txtPeriode"]').val();
-        console.log(perperiode + " : " + periode);
+        $.ajax({
+            type:'GET',
+            url:"{{ route('dataChart') }}",
+            data:{perperiode:perperiode, periode:periode},
+            dataType: 'json',
+            success:function(data){
+                console.log(data);
+                setChart(data);
+                setOverviewBox(data);
+            },
+            error:function(err){
+                console.log(err.responseText);
+            }
+        });
+
+        // console.log(perperiode + " : " + periode);
     }
 
-    function setChart(pembelian, pemesanan){
-        var ctx2 = document.getElementById("chart-line").getContext("2d");
+    function getRanking(){
+        $.ajax({
+            type:'GET',
+            url:"{{ route('rankingPoint') }}",
+            dataType: 'json',
+            success:function(data){
+                // console.log(data);
+                setRanking(data);
+            },
+            error:function(err){
+                console.log(err.responseText);
+            }
+        });
+    }
 
+    function setRanking(listRanking){
+        // console.log(listRanking);
+        let html = "";
+        let avatar = "{{ asset('images/avatar/user') }}";
+
+        listRanking.forEach(element => {
+            html += '<li>';
+            html += '<a>';
+            html += '<img src="' + avatar.replace('user', element.users.avatar) + '" alt="">';
+            html += '<span class="product">' + element.users.username + '</span>';
+            html += '</a>';
+            html += '<span class="price">' + element.redeemable_points + ' Points</span>';
+            html += '</li>';
+        });
+
+        $('#ranking_points').html(html);
+    }
+
+    function setOverviewBox(data){
+        let penjualan = 0, pemesanan = 0;
+        data.pendapatanPembelian.forEach(element => {
+            penjualan += Number(element.pendapatan);
+        });
+        data.pendapatanPemesanan.forEach(element => {
+            pemesanan += Number(element.pendapatan);
+        })
+        $('#boxTransaksi').html(data.totalTransaksi);
+        $('#boxPemesanan').html('Rp ' + intToString(pemesanan));
+        $('#boxPenjualan').html('Rp ' + intToString(penjualan));
+        $('#boxPendapatan').html('Rp ' + intToString(data.totalPendapatan));
+    }
+
+    function intToString(num) {
+        num = num.toString().replace(/[^0-9.]/g, '');
+        if (num < 1000) {
+            return num;
+        }
+        let si = [
+        {v: 1E3, s: "K"},
+        {v: 1E6, s: "M"},
+        {v: 1E9, s: "B"},
+        {v: 1E12, s: "T"},
+        {v: 1E15, s: "P"},
+        {v: 1E18, s: "E"}
+        ];
+        let index;
+        for (index = si.length - 1; index > 0; index--) {
+            if (num >= si[index].v) {
+                break;
+            }
+        }
+        return (num / si[index].v).toFixed(2).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1") + si[index].s;
+    }
+
+    function setChart(data){
+        var ctx2 = document.getElementById("chart-line").getContext("2d");
+        let chartStatus = Chart.getChart("chart-line");
+        if (chartStatus != undefined) {
+            chartStatus.destroy();
+        }
         var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
 
         gradientStroke1.addColorStop(1, 'rgba(115, 111, 78,0.2)');
@@ -237,12 +310,112 @@ rel="stylesheet"
         gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
         gradientStroke2.addColorStop(0, 'rgba(52, 63, 62,0)'); //purple colors
 
+        let allLabel = new Array();
+        let pemesananLabel = new Array(), penjualanLabel = new Array();
+        let pemesananData = new Array(), penjualanData = new Array();
+
+        data.transaksiPembelian.forEach(element => {
+            if(element.day === undefined){
+                penjualanLabel.push(element.month);
+            }
+            else{
+                penjualanLabel.push(element.day);
+            }
+        });
+        data.transaksiPemesanan.forEach(element => {
+            if(element.day === undefined){
+                pemesananLabel.push(element.month);
+            }
+            else{
+                pemesananLabel.push(element.day);
+            }
+        })
+
+        allLabel = [...new Set([...pemesananLabel, ...penjualanLabel])];
+
+        // console.log(data.transaksiPembelian);
+
+        console.log(allLabel);
+        console.log(penjualanData);
+        console.log(pemesananData);
+
+        for (let index = 0; index < allLabel.length; index++) {
+            for (let index2 = 0; index2 < data.transaksiPembelian.length; index2++) {
+                if(data.transaksiPembelian[index2].day === undefined){
+                    if(allLabel[index] === data.transaksiPembelian[index2].month){
+                        penjualanData.push(data.transaksiPembelian[index2].transaksi);
+                        break;
+                    }
+                    else{
+                        if(index2 === ( data.transaksiPembelian.length - 1 )){
+                            penjualanData.push(0);
+                        }
+                    }
+                }
+                else{
+                    if(allLabel[index] === data.transaksiPembelian[index2].day){
+                        penjualanData.push(data.transaksiPembelian[index2].transaksi);
+                        break;
+                    }
+                    else{
+                        if(index2 === ( data.transaksiPembelian.length - 1 )){
+                            penjualanData.push(0);
+                        }
+                    }
+                }
+            }
+            // data.transaksiPembelian.forEach(([element, index2]) => {
+            //     if(allLabel[index] === element.day){
+            //         penjualanData.push(element.transaksi);
+            //     }
+            //     else{
+            //         if(index2 === ( data.transaksiPembelian.length - 1 )){
+            //             penjualanData.push(0);
+            //         }
+            //     }
+            // });
+            for (let index2 = 0; index2 < data.transaksiPemesanan.length; index2++) {
+                if(data.transaksiPemesanan[index2].day === undefined){
+                    if(allLabel[index] === data.transaksiPemesanan[index2].month){
+                        pemesananData.push(data.transaksiPemesanan[index2].transaksi);
+                        break;
+                    }
+                    else{
+                        if(index2 === ( data.transaksiPemesanan.length - 1 )){
+                            pemesananData.push(0);
+                        }
+                    }
+                }
+                else{
+                    if(allLabel[index] === data.transaksiPemesanan[index2].day){
+                        pemesananData.push(data.transaksiPemesanan[index2].transaksi);
+                        break;
+                    }
+                    else{
+                        if(index2 === ( data.transaksiPemesanan.length - 1 )){
+                            pemesananData.push(0);
+                        }
+                    }
+                }
+            }
+            // data.transaksiPemesanan.forEach(([element, index2]) => {
+            //     if(allLabel[index] === element.day){
+            //         pemesananData.push(element.transaksi);
+            //     }
+            //     else{
+            //         if(index2 === ( data.transaksiPemesanan.length - 1 )){
+            //             pemesananData.push(0);
+            //         }
+            //     }
+            // });
+        }
+
         new Chart(ctx2, {
             type: "line",
             data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: allLabel,
                 datasets: [{
-                    label: "Pembelian",
+                    label: "Penjualan",
                     tension: 0.4,
                     borderWidth: 0,
                     pointRadius: 0,
@@ -250,7 +423,7 @@ rel="stylesheet"
                     borderWidth: 3,
                     backgroundColor: gradientStroke1,
                     fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                    data: penjualanData,
                     maxBarThickness: 6
 
                 },
@@ -263,7 +436,7 @@ rel="stylesheet"
                     borderWidth: 3,
                     backgroundColor: gradientStroke2,
                     fill: true,
-                    data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+                    data: pemesananData,
                     maxBarThickness: 6
                 },
                 ],

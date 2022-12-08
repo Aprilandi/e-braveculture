@@ -59,7 +59,7 @@ class PemesananController extends Controller
         ->groupBy('order_transactions.no_resi')
         ->groupBy('order_transactions.created_at')
         ->groupBy('order_transactions.updated_at')
-        ->paginate(2, ['*'], 'terbayar');
+        ->paginate(10, ['*'], 'terbayar');
 
         // dd($terbayar);
 

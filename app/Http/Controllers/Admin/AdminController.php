@@ -20,6 +20,7 @@ class AdminController extends Controller
     }
 
     public function dataChart(Request $request){
+        // dd($request);
         if($request->perperiode == "tahun"){
             $transaksiPemesanan = OrderTransactions::whereYear('created_at', $request->periode)
             ->select(
@@ -137,7 +138,7 @@ class AdminController extends Controller
     }
 
     public function getPointRanking(){
-        $user = UserStatus::orderBy('redeemable_points', 'desc')->get();
+        $user = UserStatus::orderBy('redeemable_points', 'desc')->with('users')->limit(10)->get();
         return json_encode($user);
     }
 }
