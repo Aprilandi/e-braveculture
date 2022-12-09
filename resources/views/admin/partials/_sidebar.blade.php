@@ -17,6 +17,7 @@
             </a>
         </li>
         {{-- gamification --}}
+        @if(Auth::user()->role->role == "Admin")
         <li>
             <a href="#">
                 <i class='bx bx-dice-4' ></i>
@@ -67,19 +68,23 @@
                 </li>
             {{-- </ul>
         </ul> --}}
+        @endif
         {{-- produk --}}
+        @if(Auth::user()->role->role == "Toko" || Auth::user()->role->role == "Admin")
         <li>
             <a href="#">
                 <i class='bx bx-store'></i>
                 <span class="links_name">Produk</span>
             </a>
         </li>
+        @endif
         {{-- <li class="has-submenu">
             <a href="#">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Gamification</span>
             </a>
             <ul class="submenu collapse"> --}}
+                @if(Auth::user()->role->role == "Toko")
                 <li style="margin-left: 10px">
                     <a href="{{ route('produk.index') }}"
                     @if(!empty($produk))
@@ -89,6 +94,8 @@
                         <span class="links_name">List Produk Jual</span>
                     </a>
                 </li>
+                @endif
+                @if(Auth::user()->role->role == "Admin")
                 <li style="margin-left: 10px">
                     <a href="{{ route('sablon.index') }}"
                     @if(!empty($sablon))
@@ -98,6 +105,7 @@
                         <span class="links_name">List Bahan Sablon</span>
                     </a>
                 </li>
+                @endif
             {{-- </ul>
         </ul> --}}
         {{-- transaksi --}}
@@ -113,6 +121,7 @@
                 <span class="links_name">Gamification</span>
             </a>
             <ul class="submenu collapse"> --}}
+                @if(Auth::user()->role->role == "Toko" || Auth::user()->role->role == "Owner")
                 <li style="margin-left: 10px">
                     <a href="{{ route('penjualan.index') }}"
                     @if(!empty($penjualan))
@@ -122,6 +131,8 @@
                         <span class="links_name">Penjualan</span>
                     </a>
                 </li>
+                @endif
+                @if(Auth::user()->role->role == "Admin" || Auth::user()->role->role == "Owner")
                 <li style="margin-left: 10px">
                     <a href="{{ route('pemesanan.index') }}"
                     @if(!empty($pemesanan))
@@ -131,9 +142,11 @@
                         <span class="links_name">Pemesanan</span>
                     </a>
                 </li>
+                @endif
             {{-- </ul>
         </ul> --}}
         <div class="lout_out__wrapper">
+            @if(Auth::user()->role->role == "Admin")
             <li class="user__logout log_out">
                 <a href="{{ route('user.index') }}"
                 @if(!empty($users))
@@ -143,6 +156,7 @@
                     <span class="links_name">Account</span>
                 </a>
             </li>
+            @endif
             <li class="log_out">
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('formLogout').submit();">
                     <i class='bx bx-log-out'></i>

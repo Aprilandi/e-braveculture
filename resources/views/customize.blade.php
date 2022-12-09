@@ -297,7 +297,7 @@
             <div class="col-md-6">
                 <div class="section-heading">
                     <button id="order" name="order" data-href="{{ route('customize.order') }}">Make Order!</button>
-                    <button id="export">Export</button>
+                    {{-- <button id="export">Export</button> --}}
                 </div>
             </div>
             <div class="col-md-12">

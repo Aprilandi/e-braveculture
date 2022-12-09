@@ -6,6 +6,7 @@ use App\Models\Products;
 use App\Models\RewardHistories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {

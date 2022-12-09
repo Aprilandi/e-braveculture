@@ -45,10 +45,13 @@ Route::middleware('auth')->group(function() {
     Route::post('/{user}/history/upload', 'HistoryController@upload_bukti')->name('history.bukti');
     Route::resource('/{user}/history', 'HistoryController')->except('show');
 
+    // Route::group(['middleware' => ['admin', 'toko', 'owner']], function() {
+    Route::get('/dashboard/admin', 'Admin\AdminController@index')->name('admin');
+    Route::get('/dashboard/admin/dataChart', 'Admin\AdminController@dataChart')->name('dataChart');
+    Route::get('/dashboard/admin/rankingPoint', 'Admin\AdminController@getPointRanking')->name('rankingPoint');
+    // });
+
     Route::middleware('admin')->group(function() {
-        Route::get('/dashboard/admin', 'Admin\AdminController@index')->name('admin');
-        Route::get('/dashboard/admin/dataChart', 'Admin\AdminController@dataChart')->name('dataChart');
-        Route::get('/dashboard/admin/rankingPoint', 'Admin\AdminController@getPointRanking')->name('rankingPoint');
         Route::post('/dashboard/admin/user/role', 'Admin\UsersController@rolestore')->name('role.store');
         Route::put('/dashboard/admin/user/role/{id}', 'Admin\UsersController@roleupdate')->name('role.update');
         Route::delete('/dashboard/admin/user/role/{id}/delete', 'Admin\UsersController@roledestroy')->name('role.destroy');
@@ -62,10 +65,6 @@ Route::middleware('auth')->group(function() {
         Route::put('/dashboard/admin/point/simpanharga', 'Admin\PointsController@simpanharga')->name('simpanharga');
         Route::resource('/dashboard/admin/point', 'Admin\PointsController');
         Route::resource('/dashboard/admin/quiz', 'Admin\QuizController');
-        Route::post('/dashboard/admin/produk/typestore', 'Admin\ProdukController@typestore')->name('produk.typestore');
-        Route::put('/dashboard/admin/produk/typeupdate/{id}', 'Admin\ProdukController@typeupdate')->name('produk.typeupdate');
-        Route::delete('/dashboard/admin/produk/typedestroy/{id}', 'Admin\ProdukController@typedestroy')->name('produk.typedestroy');
-        Route::resource('/dashboard/admin/produk', 'Admin\ProdukController');
         Route::resource('/dashboard/admin/material', 'Admin\MaterialsController');
         Route::get('/dashboard/admin/sablon', 'Admin\SablonController@index')->name('sablon.index');
         Route::post('/dashboard/admin/sablon/simpan/warna', 'Admin\SablonController@simpanwarna')->name('warna.store');
@@ -77,9 +76,19 @@ Route::middleware('auth')->group(function() {
         Route::get('/dashboard/admin/pemesanan', 'Admin\PemesananController@index')->name('pemesanan.index');
         Route::put('/dashboard/admin/pemesanan/{id}', 'Admin\PemesananController@konfirmasi')->name('pemesanan.konfirmasi');
         Route::put('/dashboard/admin/pemesanan/tolak/{id}', 'Admin\PemesananController@tolak')->name('pemesanan.tolak');
+    });
+
+    Route::middleware('toko')->group(function() {
+        Route::post('/dashboard/admin/produk/typestore', 'Admin\ProdukController@typestore')->name('produk.typestore');
+        Route::put('/dashboard/admin/produk/typeupdate/{id}', 'Admin\ProdukController@typeupdate')->name('produk.typeupdate');
+        Route::delete('/dashboard/admin/produk/typedestroy/{id}', 'Admin\ProdukController@typedestroy')->name('produk.typedestroy');
+        Route::resource('/dashboard/admin/produk', 'Admin\ProdukController');
         Route::get('/dashboard/admin/penjualan', 'Admin\PenjualanController@index')->name('penjualan.index');
         Route::put('/dashboard/admin/penjualan/{id}', 'Admin\PenjualanController@konfirmasi')->name('penjualan.konfirmasi');
         Route::put('/dashboard/admin/penjualan/tolak/{id}', 'Admin\PenjualanController@tolak')->name('penjualan.tolak');
     });
 
+    Route::middleware('owner')->group(function() {
+
+    });
 });

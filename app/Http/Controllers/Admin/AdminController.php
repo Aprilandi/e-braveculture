@@ -11,12 +11,18 @@ use App\Models\SaleTransactions;
 use App\Models\UserStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function index(){
-        return view('admin/dashboard', ['dashboard' => 'active', 'page' => 'Dashboard']);
+        if(Auth::user()->role->role != "User"){
+            return view('admin/dashboard', ['dashboard' => 'active', 'page' => 'Dashboard']);
+        }
+        else{
+            return redirect()->route('dashboard');
+        }
     }
 
     public function dataChart(Request $request){

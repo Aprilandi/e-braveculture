@@ -335,9 +335,9 @@ rel="stylesheet"
 
         // console.log(data.transaksiPembelian);
 
-        console.log(allLabel);
-        console.log(penjualanData);
-        console.log(pemesananData);
+        // console.log(allLabel);
+        // console.log(penjualanData);
+        // console.log(pemesananData);
 
         for (let index = 0; index < allLabel.length; index++) {
             for (let index2 = 0; index2 < data.transaksiPembelian.length; index2++) {
