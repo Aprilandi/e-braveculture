@@ -16,6 +16,7 @@ class CreateOrderTransactionsTable extends Migration
         Schema::create('order_transactions', function (Blueprint $table) {
             $table->increments('id_order');
             $table->integer('id_user')->unsigned();
+            $table->integer('id_colour')->unsigned();
             $table->integer('id_voucher')->unsigned()->nullable();
             $table->string('alamat_penuh');
             $table->integer('total_quantity');
@@ -38,6 +39,11 @@ class CreateOrderTransactionsTable extends Migration
 
             $table->foreign('id_user')
             ->references('id_user')->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('restrict');
+
+            $table->foreign('id_colour')
+            ->references('id_colour')->on('colours')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 

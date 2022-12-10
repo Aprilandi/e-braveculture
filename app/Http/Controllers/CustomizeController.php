@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\RajaOngkir;
+use App\Models\Colour;
 use App\Models\Materials;
 use App\Models\OrderTransactionDetails;
 use App\Models\OrderTransactionImages;
@@ -21,7 +22,8 @@ class CustomizeController extends Controller
         $material = Materials::get();
         $province = RajaOngkir::instance()->get_provinces();
         $city = RajaOngkir::instance()->get_cities();
-        return view('customize', ['material' => $material, 'province' => $province, 'city' => $city]);
+        $colour = Colour::get();
+        return view('customize', ['colour' => $colour, 'material' => $material, 'province' => $province, 'city' => $city]);
     }
 
     public function saveOrder(Request $request){
@@ -79,6 +81,7 @@ class CustomizeController extends Controller
 
                 try{
                     $id_order = OrderTransactions::create([
+                        "id_colour" => $data->warna,
                         "id_user" => Auth::user()->id_user,
                         "alamat_penuh" => $data->alamat,
                         "total_quantity" => $data->total_quantity,

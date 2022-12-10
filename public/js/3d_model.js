@@ -131,7 +131,7 @@ export function getCanvas(){
     canvasTextureKiri.repeat.x = -1;
 };
 
-export function loadModel(){
+export function loadModel(warna){
     // MODEL
     // let boxGeo = new THREE.BoxGeometry(1,1,1); //Geometry pernyataan bentuk
     // let boxMat = new THREE.MeshBasicMaterial({ map: canvasTexture }); //Material pernyataan jenis (seperti warnanya atau pemantulnya)
@@ -175,24 +175,30 @@ export function loadModel(){
             laki_kiri.material.map = document.getElementById("kiri");
 
             laki_depan.material = new THREE.MeshPhysicalMaterial( { map: canvasTextureDepan } );
+            // laki_depan.material = new THREE.MeshPhysicalMaterial( { map: canvasTextureDepan, color: warna } );
+            // laki_depan.material = new THREE.Color(warna);
             laki_depan.material.side = THREE.DoubleSide;
             laki_belakang.material = new THREE.MeshPhysicalMaterial( { map: canvasTextureBelakang } );
+            // laki_belakang.material = new THREE.MeshPhysicalMaterial( { map: canvasTextureBelakang, color: warna } );
             laki_belakang.material.side = THREE.DoubleSide;
+            // laki_belakang.material = new THREE.Color(warna);
             laki_kanan.material = new THREE.MeshPhysicalMaterial( { map: canvasTextureKanan } );
+            // laki_kanan.material = new THREE.MeshPhysicalMaterial( { map: canvasTextureKanan, color: warna } );
             laki_kanan.material.side = THREE.DoubleSide;
+            // laki_kanan.material = new THREE.Color(warna);
             laki_kiri.material = new THREE.MeshPhysicalMaterial( { map: canvasTextureKiri } );
+            // laki_kiri.material = new THREE.MeshPhysicalMaterial( { map: canvasTextureKiri, color: warna } );
             laki_kiri.material.side = THREE.DoubleSide;
+            laki_kerah.material = new THREE.MeshPhysicalMaterial( { color: warna } );
+            laki_kerah.material.side = THREE.DoubleSide;
+            // laki_kiri.material = new THREE.Color(warna);
             // let mat001 = new THREE.MeshPhysicalMaterial();
-            // let mat002 = new THREE.MeshPhysicalMaterial();
-            // let mat003 = new THREE.MeshPhysicalMaterial();
-            // mat001.color = new THREE.Color("gold");
-            // mat002.color = new THREE.Color("red");
-            // mat003.color = new THREE.Color("blue");
+            // mat001.color = new THREE.Color(warna);
             // laki_depan.material = mat001;
             // laki_belakang.material = mat001;
-            // laki_kanan.material = mat002;
-            // laki_kiri.material = mat002;
-            // laki_kerah.material = mat003;
+            // laki_kanan.material = mat001;
+            // laki_kiri.material = mat001;
+            // laki_kerah.material = mat001;
             // laki_depan.material.side = THREE.DoubleSide;
             // laki_belakang.material.side = THREE.DoubleSide;
             // laki_kanan.material.side = THREE.DoubleSide;

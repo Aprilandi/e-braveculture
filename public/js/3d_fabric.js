@@ -35,26 +35,29 @@ let kanan;
 let kiri;
 let canvas;
 
-function setCanvas(width, height){
+function setCanvas(width, height, warna){
+    if(warna === undefined){
+        warna = 'rgb(240,240,240)';
+    }
     if(width === undefined && height === undefined){
         width = document.getElementById('depan').offsetWidth;
         height = document.getElementById('depan').offsetHeight;
     }
 
     depan = new fabric.Canvas('depan', {
-        backgroundColor: 'rgb(240,240,240)',
+        backgroundColor: warna,
         width: width, height: height
     });
     belakang = new fabric.Canvas('belakang', {
-        backgroundColor: 'rgb(240,240,240)',
+        backgroundColor: warna,
         width: width, height: height
     });
     kanan = new fabric.Canvas('kanan', {
-        backgroundColor: 'rgb(240,240,240)',
+        backgroundColor: warna,
         width: width, height: height
     });
     kiri = new fabric.Canvas('kiri', {
-        backgroundColor: 'rgb(240,240,240)',
+        backgroundColor: warna,
         width: width, height: height
     });
 

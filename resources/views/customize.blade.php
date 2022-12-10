@@ -297,6 +297,11 @@
             <div class="col-md-6">
                 <div class="section-heading">
                     <button id="order" name="order" data-href="{{ route('customize.order') }}">Make Order!</button>
+                    <select id="txtWarna">
+                        @foreach($colour as $row)
+                        <option value="{{ $row->id_colour }}" data-rgb="{{ $row->rgb }}" data-hex="{{ $row->hex }}">{{ $row->warna }}</option>
+                        @endforeach
+                    </select>
                     {{-- <button id="export">Export</button> --}}
                 </div>
             </div>
@@ -327,7 +332,7 @@
                         <div class="left-content">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="relative h-256">
+                                    <div class="relative h-256" id="idCanvas">
                                         <div id="showDepan" class="hideCanvas">
                                             <div class="scene">
                                                 <canvas class="config" id="depan"></canvas>
@@ -763,7 +768,50 @@
             // console.log(json_3d_model);
         });
         $('span#Vchr').html(idr(0));
-
+    });
+    $('#txtWarna').on('change', function(){
+        html = "";
+        html += '<div id="showDepan" class="hideCanvas">';
+        html += '<div class="scene">';
+        html += '<canvas class="config" id="depan"></canvas>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div id="showBelakang" class="hideCanvas" style="display:none">';
+        html += '<div class="scene">';
+        html += '<canvas class="config" id="belakang"></canvas>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div id="showKanan" class="hideCanvas" style="display:none">';
+        html += '<div class="scene">';
+        html += '<canvas class="config" id="kanan"></canvas>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div id="showKiri" class="hideCanvas" style="display:none">';
+        html += '<div class="scene">';
+        html += '<canvas class="config" id="kiri"></canvas>';
+        html += '</div>';
+        html += '</div>';
+        $('#idCanvas').html(html);
+        setCanvas(undefined, undefined, $('#txtWarna :selected').data('rgb'));
+        module.innit();
+        module.getCanvas();
+        module.loadModel($('#txtWarna :selected').data('rgb'));
+        if(AttachmentArray['depan'] !== undefined){
+            AttachmentArray['depan'].splice(0, AttachmentArray['depan'].length);
+        }
+        if(AttachmentArray['belakang'] !== undefined){
+            AttachmentArray['belakang'].splice(0, AttachmentArray['belakang'].length);
+        }
+        if(AttachmentArray['kiri'] !== undefined){
+            AttachmentArray['kiri'].splice(0, AttachmentArray['kiri'].length);
+        }
+        if(AttachmentArray['kanan'] !== undefined){
+            AttachmentArray['kanan'].splice(0, AttachmentArray['kanan'].length);
+        }
+        $('#gallery_depan').html("");
+        $('#gallery_belakang').html("");
+        $('#gallery_kiri').html("");
+        $('#gallery_kanan').html("");
     });
 </script>
 {{--  popup info --}}
@@ -943,6 +991,8 @@ $('button#btn_checkout').on('click', function(e) {
     data["width"] = width;
     data["height"] = height;
     data["subttl"] = subTotal();
+    data['warna'] = $('#txtWarna').val();
+    // console.log(width);
     if($('input#simpandata').is(':checked')){
         // alert('tes');
         data["id_provinsi"] = id_provinsi;

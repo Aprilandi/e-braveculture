@@ -125,7 +125,7 @@
                                         <td>Rp {{ number_format($row->ordertransactionpayments->sum('pembayaran'), '2', ',', '.') }}</td>
                                         <td>{{ !empty($row->perolehan_points) ? $row->perolehan_points:0 }} + {{ !empty($row->bonus_points) ? $row->bonus_points:0 }} ( {{ !empty($row->persentase_bonus) ? $row->persentase_bonus:0 }}% ) = {{ $row->perolehan_points + $row->bonus_points }} Point</td>
                                         <td>
-                                            <button class="btn btn-light btn-sm" name="model3d" data-model="{{ !empty($row->model_3d_json) ? $row->model_3d_json:'' }}" data-height="{{ $row->canvas_height }}" data-width="{{ $row->canvas_width }}">
+                                            <button class="btn btn-light btn-sm" name="model3d" data-model="{{ !empty($row->model_3d_json) ? $row->model_3d_json:'' }}" data-height="{{ $row->canvas_height }}" data-width="{{ $row->canvas_width }}" data-rgb="{{ $row->colours->rgb }}">
                                                 <i class="fa fa-eye"> </i>
                                             </button>
                                         </td>
@@ -237,7 +237,7 @@
                                         <td>Rp {{ number_format($row->ordertransactionpayments->sum('pembayaran'), '2', ',', '.') }}</td>
                                         <td>{{ !empty($row->perolehan_points) ? $row->perolehan_points:0 }} + {{ !empty($row->bonus_points) ? $row->bonus_points:0 }} ( {{ !empty($row->persentase_bonus) ? $row->persentase_bonus:0 }}% ) = {{ $row->perolehan_points + $row->bonus_points }} Point</td>
                                         <td>
-                                            <button class="btn btn-light btn-sm" name="model3d" data-model="{{ !empty($row->model_3d_json) ? $row->model_3d_json:'' }}" data-height="{{ $row->canvas_height }}" data-width="{{ $row->canvas_width }}">
+                                            <button class="btn btn-light btn-sm" name="model3d" data-model="{{ !empty($row->model_3d_json) ? $row->model_3d_json:'' }}" data-height="{{ $row->canvas_height }}" data-width="{{ $row->canvas_width }}" data-rgb="{{ $row->colours->rgb }}">
                                                 <i class="fa fa-eye"> </i>
                                             </button>
                                         </td>
@@ -345,7 +345,7 @@
                                         </td>
                                         <td>{{ !empty($row->perolehan_points) ? $row->perolehan_points:0 }} + {{ !empty($row->bonus_points) ? $row->bonus_points:0 }} ( {{ !empty($row->persentase_bonus) ? $row->persentase_bonus:0 }}% ) = {{ $row->perolehan_points + $row->bonus_points }} Point</td>
                                         <td>
-                                            <button class="btn btn-light btn-sm" name="model3d" data-model="{{ !empty($row->model_3d_json) ? $row->model_3d_json:'' }}" data-height="{{ $row->canvas_height }}" data-width="{{ $row->canvas_width }}">
+                                            <button class="btn btn-light btn-sm" name="model3d" data-model="{{ !empty($row->model_3d_json) ? $row->model_3d_json:'' }}" data-height="{{ $row->canvas_height }}" data-width="{{ $row->canvas_width }}" data-rgb="{{ $row->colours->rgb }}">
                                                 <i class="fa fa-eye"> </i>
                                             </button>
                                         </td>
@@ -689,15 +689,16 @@ function changeThumb(id){
         var url = "{{ asset('images/design/name') }}"
         var width = $(this).data('width');
         var height = $(this).data('height');
+        var colour = $(this).data('rgb');
         $('.config').width(width);
         $('.config').height(height);
         $('.scene').width(width);
         $('.scene').height(height);
         setCanvas(width, height);
         getModel(url.replace("name", json));
-        module.innit(width, height);
+        module.innit(width, height, colour);
         module.getCanvas();
-        module.loadModel();
+        module.loadModel(colour);
         $('#moodelModal').modal('show');
     });
     // console.log(getModel('{{ asset("images/design/2022-09-04-user.json")}}'));

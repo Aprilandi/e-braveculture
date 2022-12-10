@@ -11,7 +11,7 @@ class OrderTransactions extends Model
     protected $primaryKey = 'id_order';
 
     protected $fillable = [
-    'id_order', 'id_user', 'id_voucher', 'total_quantity', 'sub_total', 'kurir', 'paket', 'shipping_fee', 'total', 'status', 'alamat_penuh', 'dp', 'status_bayar', 'perolehan_points', 'bonus_points', 'persentase_bonus', 'no_resi', 'model_3d_json', 'canvas_height', 'canvas_width'
+    'id_order', 'id_user', 'id_colour', 'id_voucher', 'total_quantity', 'sub_total', 'kurir', 'paket', 'shipping_fee', 'total', 'status', 'alamat_penuh', 'dp', 'status_bayar', 'perolehan_points', 'bonus_points', 'persentase_bonus', 'no_resi', 'model_3d_json', 'canvas_height', 'canvas_width'
     ];
 
     public function User(){
@@ -32,5 +32,9 @@ class OrderTransactions extends Model
 
     public function OrderTransactionImages(){
         return $this->hasMany(OrderTransactionImages::class, 'id_order', 'id_order');
+    }
+
+    public function Colours(){
+        return $this->belongsTo(Colour::class, 'id_colour', 'id_colour');
     }
 }

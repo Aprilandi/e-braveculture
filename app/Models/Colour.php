@@ -13,4 +13,8 @@ class Colour extends Model
     protected $fillable = [
         'id_colour', 'warna', 'hex', 'rgb'
     ];
+
+    public function OrderTransactions(){
+        return $this->hasMany(OrderTransactions::class, 'id_colour', 'id_colour');
+    }
 }
