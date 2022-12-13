@@ -76,6 +76,8 @@ class HistoryController extends Controller
             ->join('order_transaction_payments', 'order_transactions.id_order', '=', 'order_transaction_payments.id_order')
             ->groupBy('order_transactions.id_order')
             ->groupBy('order_transactions.id_user')
+            ->groupBy('order_transactions.id_colour')
+            ->groupBy('order_transactions.id_combed')
             ->groupBy('order_transactions.id_voucher')
             ->groupBy('order_transactions.alamat_penuh')
             ->groupBy('order_transactions.total_quantity')

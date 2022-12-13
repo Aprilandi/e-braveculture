@@ -92,6 +92,7 @@
                                         <th>Tanggal</th>
                                         <th>User</th>
                                         <th>Alamat</th>
+                                        <th>Combed</th>
                                         <th>Total Barang</th>
                                         <th>Sub Total</th>
                                         <th>Paket Kurir & Ongkir</th>
@@ -115,6 +116,7 @@
                                         <td>{{ date('j F Y', strtotime($row->created_at)) }}</td>
                                         <td>{{ !empty($row->user->name) ? $row->user->name:"" }}</td>
                                         <td>{{ !empty($row->alamat_penuh) ? $row->alamat_penuh:"" }}</td>
+                                        <td>{{ !empty($row->id_combed) ? $row->combed->materials->material_name." ".$row->combed->combed:"" }}</td>
                                         <td>{{ !empty($row->total_quantity) ? $row->total_quantity:"" }}</td>
                                         <td>Rp {{ number_format($row->sub_total, '2', ',', '.') }}</td>
                                         <td>{{ !empty($row->kurir) ? $row->kurir:"" }} : {{ !empty($row->paket) ? $row->paket:"" }} Rp {{ number_format($row->shipping_fee, '2', ',', '.') }}</td>
@@ -204,6 +206,7 @@
                                         <th>Tanggal</th>
                                         <th>User</th>
                                         <th>Alamat</th>
+                                        <th>Combed</th>
                                         <th>Total Barang</th>
                                         <th>Sub Total</th>
                                         <th>Paket Kurir & Ongkir</th>
@@ -227,6 +230,7 @@
                                         <td>{{ date('j F Y', strtotime($row->created_at)) }}</td>
                                         <td>{{ !empty($row->user->name) ? $row->user->name:"" }}</td>
                                         <td>{{ !empty($row->alamat_penuh) ? $row->alamat_penuh:"" }}</td>
+                                        <td>{{ !empty($row->id_combed) ? $row->combed->materials->material_name." ".$row->combed->combed:"" }}</td>
                                         <td>{{ !empty($row->total_quantity) ? $row->total_quantity:"" }}</td>
                                         <td>Rp {{ number_format($row->sub_total, '2', ',', '.') }}</td>
                                         <td>{{ !empty($row->kurir) ? $row->kurir:"" }} : {{ !empty($row->paket) ? $row->paket:"" }} Rp {{ number_format($row->shipping_fee, '2', ',', '.') }}</td>
@@ -298,6 +302,7 @@
                                         <th>Tanggal</th>
                                         <th>User</th>
                                         <th>Alamat</th>
+                                        <th>Combed</th>
                                         <th>Total Barang</th>
                                         <th>Sub Total</th>
                                         <th>Paket Kurir & Ongkir</th>
@@ -321,6 +326,7 @@
                                         <td>{{ date('j F Y', strtotime($row->created_at)) }}</td>
                                         <td>{{ !empty($row->user->name) ? $row->user->name:"" }}</td>
                                         <td>{{ !empty($row->alamat_penuh) ? $row->alamat_penuh:"" }}</td>
+                                        <td>{{ !empty($row->id_combed) ? $row->combed->materials->material_name." ".$row->combed->combed:"" }}</td>
                                         <td>{{ !empty($row->total_quantity) ? $row->total_quantity:"" }}</td>
                                         <td>Rp {{ number_format($row->sub_total, '2', ',', '.') }}</td>
                                         <td>{{ !empty($row->kurir) ? $row->kurir:"" }} : {{ !empty($row->paket) ? $row->paket:"" }} Rp {{ number_format($row->shipping_fee, '2', ',', '.') }}</td>

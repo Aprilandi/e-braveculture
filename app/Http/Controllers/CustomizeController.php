@@ -82,6 +82,7 @@ class CustomizeController extends Controller
                 try{
                     $id_order = OrderTransactions::create([
                         "id_colour" => $data->warna,
+                        "id_combed" => $data->combed,
                         "id_user" => Auth::user()->id_user,
                         "alamat_penuh" => $data->alamat,
                         "total_quantity" => $data->total_quantity,

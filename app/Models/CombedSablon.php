@@ -17,4 +17,8 @@ class CombedSablon extends Model
     public function Materials(){
         return $this->belongsTo(Materials::class, 'id_material', 'id_material');
     }
+
+    public function OrderTransactions(){
+        return $this->hasMany(OrderTransactions::class, 'id_combed', 'id_combed');
+    }
 }

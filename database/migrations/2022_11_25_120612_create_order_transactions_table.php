@@ -17,6 +17,7 @@ class CreateOrderTransactionsTable extends Migration
             $table->increments('id_order');
             $table->integer('id_user')->unsigned();
             $table->integer('id_colour')->unsigned();
+            $table->integer('id_combed')->unsigned();
             $table->integer('id_voucher')->unsigned()->nullable();
             $table->string('alamat_penuh');
             $table->integer('total_quantity');
@@ -44,6 +45,11 @@ class CreateOrderTransactionsTable extends Migration
 
             $table->foreign('id_colour')
             ->references('id_colour')->on('colours')
+            ->onUpdate('cascade')
+            ->onDelete('restrict');
+
+            $table->foreign('id_combed')
+            ->references('id_combed')->on('combed_sablons')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 
