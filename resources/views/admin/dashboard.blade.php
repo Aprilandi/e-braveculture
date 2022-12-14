@@ -23,14 +23,14 @@ rel="stylesheet"
         </div>
         <div class="box">
             <div class="right-side">
-                <div class="box-topic">Total Pemesanan</div>
+                <div class="box-topic">Total Pemesanan Custom Desain</div>
                 <div class="number" id="boxPemesanan"></div>
             </div>
             <i class='bx bxs-cart-add cart two'></i>
         </div>
         <div class="box">
             <div class="right-side">
-                <div class="box-topic">Total Penjualan</div>
+                <div class="box-topic">Total Penjualan Produk Massal</div>
                 <div class="number" id="boxPenjualan"></div>
             </div>
             <i class='bx bx-cart cart three'></i>
