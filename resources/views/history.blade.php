@@ -161,7 +161,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $row->perolehan_points }}
+                                    {{ ( $row->perolehan_points  + $row->bonus_points ) }}
                                 </td>
                                 <td class="cart_delete">
                                     <a class="cart_quantity_delete" href="" data-id="{{ $row->id_sale }}"><i class="fa fa-check"></i></a>
