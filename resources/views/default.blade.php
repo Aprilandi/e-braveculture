@@ -151,7 +151,7 @@
                                                     @php($persentase = ($min_xp/$max_xp)*100)
                                                     @endif
                                                     {{-- {{ !empty(Auth::user()->userstatus->id_level) ? Auth::user()->userstatus->id_level:'' }} --}}
-                                                        <div class="col"></div>
+                                                        <div class="col">Tier : {{ Auth::user()->userstatus->levels->tier_level }}</div>
                                                         @if(Auth::user()->userstatus->levels->tier_level == $max_lvl)
                                                             <div class="col">{{ $min_xp }}</div>
                                                         @else
